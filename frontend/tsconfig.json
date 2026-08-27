@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    /* ── Language & Module ─────────────────────────────── */
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+
+    /* ── Paths & Output ────────────────────────────────── */
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    /* ── JSX ───────────────────────────────────────────── */
+    "jsx": "react-jsx",
+
+    /* ── Strict Type Checking ──────────────────────────── */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* ── Interop ───────────────────────────────────────── */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+
+    /* ── Emit ──────────────────────────────────────────── */
+    "noEmit": true,  /* Vite handles transpilation */
+    "sourceMap": true,
+
+    /* ── Skip Lib Check ────────────────────────────────── */
+    "skipLibCheck": true,
+    "useDefineForClassFields": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

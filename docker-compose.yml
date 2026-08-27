@@ -1,0 +1,60 @@
+version: "3.9"
+
+# ============================================================
+# Automated Server Uptime Monitor — Docker Compose
+# ============================================================
+# Usage:
+#   docker-compose up -d          → Start all services in detached mode
+#   docker-compose down           → Stop & remove containers
+#   docker-compose down -v        → Stop, remove containers AND volumes
+
+services:
+  # ──────────────────────────────────────────────────────────
+  # MongoDB — Primary Database
+  # ──────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7.0
+    container_name: uptime_monitor_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-secret}
+      MONGO_INITDB_DATABASE: uptime_monitor
+    volumes:
+      - mongo_data:/data/db
+      - mongo_config:/data/configdb
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ──────────────────────────────────────────────────────────
+  # Mongo Express — Web-based MongoDB Admin UI (Dev Only)
+  # ──────────────────────────────────────────────────────────
+  mongo-express:
+    image: mongo-express:latest
+    container_name: uptime_monitor_mongo_express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USER:-admin}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD:-secret}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USER:-admin}:${MONGO_ROOT_PASSWORD:-secret}@mongo:27017/
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+# ──────────────────────────────────────────────────────────
+# Named Volumes (persist data between container restarts)
+# ──────────────────────────────────────────────────────────
+volumes:
+  mongo_data:
+    driver: local
+  mongo_config:
+    driver: local
