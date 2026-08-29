@@ -1,0 +1,43 @@
+# ============================================================
+# Automated Server Uptime Monitor — Git Attributes
+# Enforce consistent LF line endings in the repository
+# regardless of the developer's OS.
+# ============================================================
+
+# Default: normalize all text files to LF in the repo
+* text=auto eol=lf
+
+# ── Explicitly LF ──────────────────────────────────────────
+*.ts        text eol=lf
+*.tsx       text eol=lf
+*.js        text eol=lf
+*.jsx       text eol=lf
+*.json      text eol=lf
+*.md        text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.css       text eol=lf
+*.html      text eol=lf
+*.env*      text eol=lf
+*.gitignore text eol=lf
+*.prettierrc text eol=lf
+Makefile    text eol=lf
+
+# ── Windows-specific (keep CRLF on checkout) ────────────────
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+*.ps1       text eol=crlf
+
+# ── Binary — never normalise ────────────────────────────────
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.svg   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.pdf   binary
+*.zip   binary
