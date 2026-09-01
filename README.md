@@ -88,7 +88,7 @@ The Vite dev server starts at `http://localhost:5173`.
 
 ## 👤 Author
 
-**Vibhath Kalsara** — Fourth X Born
+**Vibhath Kalsara** 
 
 ---
 
