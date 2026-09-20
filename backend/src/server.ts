@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { connectDatabase } from './config/database';
+import monitorRoutes from './routes/monitorRoutes';
 
 // ─────────────────────────────────────────────────────────────
 // App Initialization
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(morgan(NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 // ─────────────────────────────────────────────────────────────
-// Health Check Route
+// Routes
 // ─────────────────────────────────────────────────────────────
 app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
@@ -32,6 +33,8 @@ app.get('/health', (_req: Request, res: Response) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+app.use('/api/monitors', monitorRoutes);
 
 // ─────────────────────────────────────────────────────────────
 // 404 Handler — Unknown Routes
