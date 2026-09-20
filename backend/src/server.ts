@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { connectDatabase } from './config/database';
 import monitorRoutes from './routes/monitorRoutes';
+import { startPollingEngine } from './services/pollingService';
 
 // ─────────────────────────────────────────────────────────────
 // App Initialization
@@ -61,6 +62,9 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 const startServer = async (): Promise<void> => {
   try {
     await connectDatabase();
+
+    // Start background polling engine after DB connection
+    startPollingEngine();
 
     app.listen(PORT, () => {
       console.log(`\n🚀  Server running in [${NODE_ENV}] mode`);
