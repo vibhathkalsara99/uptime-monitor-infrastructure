@@ -4,6 +4,7 @@
     "target": "ES2022",
     "module": "CommonJS",
     "moduleResolution": "node",
+    "ignoreDeprecations": "5.0",
     "lib": ["ES2022"],
 
     /* ── Paths & Output ────────────────────────────────── */
@@ -20,8 +21,6 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-
-    /* ── Additional Checks ─────────────────────────────── */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,

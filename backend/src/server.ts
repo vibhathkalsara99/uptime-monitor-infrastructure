@@ -1,8 +1,9 @@
 import 'dotenv/config';
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { type Application, type NextFunction, type Request, type Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import { connectDatabase } from './config/database';
 
 // ─────────────────────────────────────────────────────────────
 // App Initialization
@@ -14,9 +15,9 @@ const NODE_ENV: string = process.env.NODE_ENV ?? 'development';
 // ─────────────────────────────────────────────────────────────
 // Global Middleware
 // ─────────────────────────────────────────────────────────────
-app.use(helmet());                          // Security headers
+app.use(helmet()); // Security headers
 app.use(cors({ origin: process.env.CORS_ORIGIN ?? '*' }));
-app.use(express.json({ limit: '10kb' }));   // Body parser (JSON)
+app.use(express.json({ limit: '10kb' })); // Body parser (JSON)
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(morgan(NODE_ENV === 'production' ? 'combined' : 'dev'));
 
@@ -54,13 +55,22 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-// ─────────────────────────────────────────────────────────────
-// Start Server
-// ─────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n🚀  Server running in [${NODE_ENV}] mode`);
-  console.log(`📡  Listening on http://localhost:${PORT}`);
-  console.log(`❤️   Health check: http://localhost:${PORT}/health\n`);
-});
+const startServer = async (): Promise<void> => {
+  try {
+    await connectDatabase();
+
+    app.listen(PORT, () => {
+      console.log(`\n🚀  Server running in [${NODE_ENV}] mode`);
+      console.log(`📡  Listening on http://localhost:${PORT}`);
+      console.log(`❤️   Health check: http://localhost:${PORT}/health\n`);
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown startup error';
+    console.error(`[FATAL] ${message}`);
+    process.exit(1);
+  }
+};
+
+void startServer();
 
 export default app;
