@@ -12,6 +12,8 @@ export interface IMonitor {
   isActive: boolean;
   lastCheckedAt?: Date;
   uptimePercentage: number;
+  webhookUrl?: string;
+  alertEmail?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -80,6 +82,14 @@ const monitorSchema = new Schema<IMonitorDocument>(
       default: 100,
       min: 0,
       max: 100,
+    },
+    webhookUrl: {
+      type: String,
+      trim: true,
+    },
+    alertEmail: {
+      type: String,
+      trim: true,
     },
   },
   {

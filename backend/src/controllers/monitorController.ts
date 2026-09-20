@@ -8,6 +8,8 @@ interface CreateMonitorBody {
   intervalMinutes?: number;
   expectedStatusCode?: number;
   timeoutMs?: number;
+  webhookUrl?: string;
+  alertEmail?: string;
 }
 
 interface UpdateMonitorBody {
@@ -17,6 +19,8 @@ interface UpdateMonitorBody {
   expectedStatusCode?: number;
   timeoutMs?: number;
   isActive?: boolean;
+  webhookUrl?: string;
+  alertEmail?: string;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -29,6 +33,8 @@ export const createMonitor = async (req: Request, res: Response): Promise<void> 
   const intervalMinutes = body.intervalMinutes;
   const expectedStatusCode = body.expectedStatusCode;
   const timeoutMs = body.timeoutMs;
+  const webhookUrl = body.webhookUrl?.trim();
+  const alertEmail = body.alertEmail?.trim();
 
   if (!name || !url) {
     res.status(400).json({
@@ -38,13 +44,22 @@ export const createMonitor = async (req: Request, res: Response): Promise<void> 
     return;
   }
 
-  const newMonitor = await Monitor.create({
+  const createPayload: Record<string, unknown> = {
     name,
     url,
     intervalMinutes: intervalMinutes ?? 5,
     expectedStatusCode: expectedStatusCode ?? 200,
     timeoutMs: timeoutMs ?? 10000,
-  });
+  };
+
+  if (webhookUrl) {
+    createPayload.webhookUrl = webhookUrl;
+  }
+  if (alertEmail) {
+    createPayload.alertEmail = alertEmail;
+  }
+
+  const newMonitor = await Monitor.create(createPayload);
 
   res.status(201).json({
     status: 'success',
@@ -204,6 +219,12 @@ export const updateMonitor = async (req: Request, res: Response): Promise<void> 
   }
   if (body.isActive !== undefined) {
     monitor.isActive = body.isActive;
+  }
+  if (body.webhookUrl !== undefined) {
+    monitor.webhookUrl = body.webhookUrl.trim();
+  }
+  if (body.alertEmail !== undefined) {
+    monitor.alertEmail = body.alertEmail.trim();
   }
 
   await monitor.save();

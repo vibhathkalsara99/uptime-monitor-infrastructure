@@ -1,4 +1,5 @@
 import { Monitor, PingLog, type IMonitorDocument } from '../models';
+import { dispatchAlert } from './alertService';
 
 let pollingTimer: NodeJS.Timeout | null = null;
 const TICK_INTERVAL_MS = 60 * 1000; // Run check cycle every 60 seconds
@@ -58,7 +59,7 @@ export const pingMonitor = async (monitor: IMonitorDocument): Promise<void> => {
 };
 
 /**
- * Persists the ping log and updates the monitor's live status and SLA uptime percentage.
+ * Persists the ping log, calculates SLA uptime, updates monitor status, and dispatches alerts on status transition.
  */
 const recordPingAndStatus = async (
   monitor: IMonitorDocument,
@@ -92,12 +93,21 @@ const recordPingAndStatus = async (
     const newUptimePercentage =
       totalPings > 0 ? parseFloat(((successfulPings / totalPings) * 100).toFixed(2)) : 100;
 
-    // 3. Update Monitor document
-    monitor.status = isUp ? 'UP' : 'DOWN';
+    // 3. Track state transitions for alerting
+    const previousStatus = monitor.status;
+    const newStatus = isUp ? 'UP' : 'DOWN';
+
+    monitor.status = newStatus;
     monitor.lastCheckedAt = new Date();
     monitor.uptimePercentage = newUptimePercentage;
 
     await monitor.save();
+
+    // 4. Dispatch Alert on State Transition
+    if (previousStatus !== newStatus && previousStatus !== 'UNKNOWN') {
+      const alertType = newStatus === 'DOWN' ? 'DOWN' : 'RECOVERY';
+      void dispatchAlert(monitor, alertType, previousStatus, statusCode, errorMessage);
+    }
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : 'Error recording ping log';
     console.error(`[POLLING ERROR] Monitor ${monitor.name} (${monitor.url}): ${msg}`);
