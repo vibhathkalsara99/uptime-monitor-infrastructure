@@ -28,6 +28,20 @@ const App: FC = () => {
   const [editingMonitor, setEditingMonitor] = useState<IMonitor | null>(null);
   const [logsMonitor, setLogsMonitor] = useState<IMonitor | null>(null);
 
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('theme');
+    return (saved as 'light' | 'dark') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   const loadData = useCallback(async (isSilent = false) => {
     try {
       if (!isSilent) setLoading(true);
@@ -113,6 +127,8 @@ const App: FC = () => {
         }}
         onRefresh={() => loadData(false)}
         isRefreshing={isRefreshing}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       <main className="main-content">

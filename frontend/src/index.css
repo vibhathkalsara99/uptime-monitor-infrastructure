@@ -44,6 +44,79 @@
   --backdrop-blur: blur(16px);
   --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   --shadow-emerald-btn: 0 0 25px rgba(0, 230, 118, 0.35);
+
+  /* New elements for theming */
+  --bg-navbar: rgba(8, 12, 10, 0.85);
+  --btn-secondary-bg: rgba(255, 255, 255, 0.05);
+  --btn-secondary-hover: rgba(255, 255, 255, 0.09);
+  --btn-secondary-border: rgba(255, 255, 255, 0.15);
+  --btn-icon-bg: rgba(255, 255, 255, 0.04);
+  --btn-icon-hover: rgba(0, 230, 118, 0.15);
+  --form-input-bg: rgba(255, 255, 255, 0.04);
+  --metric-item-bg: rgba(255, 255, 255, 0.025);
+  --metric-item-border: rgba(255, 255, 255, 0.04);
+  --table-header-bg: rgba(255, 255, 255, 0.03);
+  --table-row-border: rgba(255, 255, 255, 0.03);
+  --modal-overlay-bg: rgba(4, 7, 5, 0.85);
+  --hero-title-gradient: linear-gradient(180deg, #ffffff 30%, var(--text-secondary));
+  --icon-color: var(--icon-color);
+  --status-up-bg: rgba(0, 230, 118, 0.12);
+  --status-up-border: rgba(0, 230, 118, 0.3);
+  --status-down-bg: rgba(255, 51, 102, 0.12);
+  --status-down-border: rgba(255, 51, 102, 0.3);
+  --status-unknown-bg: rgba(245, 158, 11, 0.12);
+  --status-unknown-border: rgba(245, 158, 11, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-dark-base: #f1f5f9;
+  --bg-dark-surface: #ffffff;
+  --bg-dark-card: rgba(255, 255, 255, 0.8);
+  --bg-dark-card-hover: rgba(255, 255, 255, 1);
+
+  --border-subtle: rgba(0, 0, 0, 0.1);
+  --border-emerald: rgba(0, 200, 83, 0.3);
+  --border-emerald-glow: rgba(0, 200, 83, 0.3);
+
+  --emerald-primary: #00c853; 
+  --emerald-hover: #00a844;
+  --emerald-glow: rgba(0, 200, 83, 0.2);
+  --emerald-subtle: rgba(0, 200, 83, 0.1);
+
+  --status-up: #00a844;
+  --status-down: #e11d48;
+  --status-down-glow: rgba(225, 29, 72, 0.2);
+  --status-unknown: #d97706;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-emerald: #00a844;
+  
+  --shadow-card: 0 4px 15px 0 rgba(0, 0, 0, 0.05);
+  --shadow-emerald-btn: 0 0 15px rgba(0, 200, 83, 0.3);
+
+  --bg-navbar: rgba(255, 255, 255, 0.85);
+  --btn-secondary-bg: rgba(0, 0, 0, 0.03);
+  --btn-secondary-hover: rgba(0, 0, 0, 0.06);
+  --btn-secondary-border: rgba(0, 0, 0, 0.1);
+  --btn-icon-bg: rgba(0, 0, 0, 0.04);
+  --btn-icon-hover: rgba(0, 200, 83, 0.1);
+  --form-input-bg: rgba(0, 0, 0, 0.02);
+  --metric-item-bg: rgba(0, 0, 0, 0.02);
+  --metric-item-border: rgba(0, 0, 0, 0.05);
+  --table-header-bg: rgba(0, 0, 0, 0.03);
+  --table-row-border: rgba(0, 0, 0, 0.05);
+  --modal-overlay-bg: rgba(241, 245, 249, 0.85);
+  --hero-title-gradient: linear-gradient(180deg, #0f172a 30%, var(--text-secondary));
+  --icon-color: var(--text-primary);
+  
+  --status-up-bg: rgba(0, 200, 83, 0.1);
+  --status-up-border: rgba(0, 200, 83, 0.2);
+  --status-down-bg: rgba(225, 29, 72, 0.1);
+  --status-down-border: rgba(225, 29, 72, 0.2);
+  --status-unknown-bg: rgba(217, 119, 6, 0.1);
+  --status-unknown-border: rgba(217, 119, 6, 0.2);
 }
 
 /* ── Reset & Global ───────────────────────────────────────── */
@@ -108,7 +181,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(8, 12, 10, 0.85);
+  background: var(--bg-navbar);
   backdrop-filter: var(--backdrop-blur);
   border-bottom: 1px solid var(--border-subtle);
   padding: 1rem 1.5rem;
@@ -144,14 +217,14 @@ body {
 .brand-icon svg {
   width: 20px;
   height: 20px;
-  color: #060a08;
+  color: var(--icon-color);
 }
 
 .brand-title {
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .brand-title span {
@@ -205,7 +278,7 @@ body {
   padding: 0.6rem 1.25rem;
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, var(--emerald-primary), #00c853);
-  color: #060a08;
+  color: var(--icon-color);
   font-weight: 600;
   font-size: 0.875rem;
   border: none;
@@ -226,7 +299,7 @@ body {
   gap: 0.5rem;
   padding: 0.6rem 1.1rem;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--btn-secondary-bg);
   color: var(--text-primary);
   font-weight: 500;
   font-size: 0.875rem;
@@ -236,8 +309,8 @@ body {
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--btn-secondary-hover);
+  border-color: var(--btn-secondary-border);
 }
 
 /* ── Hero / Summary Section ──────────────────────────────── */
@@ -270,7 +343,7 @@ body {
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.15;
-  background: linear-gradient(180deg, #ffffff 30%, var(--text-secondary));
+  background: var(--hero-title-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -337,7 +410,7 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--btn-secondary-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -348,7 +421,7 @@ body {
   font-size: 2.25rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .stat-subtext {
@@ -376,7 +449,7 @@ body {
 .section-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -389,7 +462,7 @@ body {
 }
 
 .search-input {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--form-input-bg);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 0.55rem 1rem;
@@ -450,7 +523,7 @@ body {
 .monitor-name {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -484,30 +557,30 @@ body {
 }
 
 .status-badge.up {
-  background: rgba(0, 230, 118, 0.12);
+  background: var(--status-up-bg);
   color: var(--status-up);
-  border: 1px solid rgba(0, 230, 118, 0.3);
+  border: 1px solid var(--status-up-border);
 }
 
 .status-badge.down {
-  background: rgba(255, 51, 102, 0.12);
+  background: var(--status-down-bg);
   color: var(--status-down);
-  border: 1px solid rgba(255, 51, 102, 0.3);
+  border: 1px solid var(--status-down-border);
   box-shadow: 0 0 15px var(--status-down-glow);
 }
 
 .status-badge.unknown {
-  background: rgba(245, 158, 11, 0.12);
+  background: var(--status-unknown-bg);
   color: var(--status-unknown);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid var(--status-unknown-border);
 }
 
 .monitor-metrics {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.75rem;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: var(--metric-item-bg);
+  border: 1px solid var(--metric-item-border);
   border-radius: var(--radius-md);
   padding: 0.85rem;
 }
@@ -550,7 +623,7 @@ body {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--form-input-bg);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
   display: flex;
@@ -561,13 +634,13 @@ body {
 }
 
 .btn-icon:hover {
-  background: rgba(0, 230, 118, 0.15);
+  background: var(--btn-icon-hover);
   color: var(--emerald-primary);
   border-color: var(--border-emerald);
 }
 
 .btn-icon.danger:hover {
-  background: rgba(255, 51, 102, 0.15);
+  background: var(--btn-icon-danger-hover);
   color: var(--status-down);
   border-color: rgba(255, 51, 102, 0.3);
 }
@@ -579,7 +652,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(4, 7, 5, 0.85);
+  background: var(--modal-overlay-bg);
   backdrop-filter: blur(12px);
   z-index: 100;
   display: flex;
@@ -633,7 +706,7 @@ body {
 .modal-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .modal-body {
@@ -656,7 +729,7 @@ body {
 }
 
 .form-input {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--form-input-bg);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 0.7rem 1rem;
@@ -696,7 +769,7 @@ body {
 .logs-table th {
   text-align: left;
   padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--table-header-bg);
   color: var(--text-secondary);
   font-weight: 600;
   text-transform: uppercase;
@@ -706,7 +779,7 @@ body {
 
 .logs-table td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--table-row-border);
   font-family: var(--font-mono);
 }
 
