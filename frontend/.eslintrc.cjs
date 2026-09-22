@@ -18,32 +18,22 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'plugin:react/jsx-runtime',   // React 17+ JSX transform — no need to import React
+    'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended', // Must be last
+    'plugin:prettier/recommended',
   ],
   env: {
     browser: true,
     es2020: true,
   },
   rules: {
-    // ── Prettier integration ────────────────────────────────
     'prettier/prettier': 'error',
-
-    // ── React specific ──────────────────────────────────────
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    'react/prop-types': 'off',            // TypeScript handles this
+    'react/prop-types': 'off',
     'react/display-name': 'warn',
-
-    // ── TypeScript specific ─────────────────────────────────
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    '@typescript-eslint/consistent-type-imports': [
-      'warn',
-      { prefer: 'type-imports' },
-    ],
-
-    // ── General ─────────────────────────────────────────────
+    '@typescript-eslint/consistent-type-imports': ['warn', { prefer: 'type-imports' }],
     'prefer-const': 'error',
     'no-var': 'error',
     eqeqeq: ['error', 'always'],
