@@ -1,0 +1,36 @@
+import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+
+let mongoServer: MongoMemoryServer;
+
+jest.setTimeout(60000); // 60 seconds to allow MongoDB binary download
+
+beforeAll(async () => {
+  mongoServer = await MongoMemoryServer.create();
+  const mongoUri = mongoServer.getUri();
+  
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.disconnect();
+  }
+  
+  await mongoose.connect(mongoUri);
+});
+
+afterAll(async () => {
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.disconnect();
+  }
+  if (mongoServer) {
+    await mongoServer.stop();
+  }
+});
+
+afterEach(async () => {
+  if (mongoose.connection.readyState !== 0) {
+    const collections = mongoose.connection.collections;
+    for (const key in collections) {
+      const collection = collections[key];
+      await collection.deleteMany({});
+    }
+  }
+});
