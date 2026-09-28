@@ -1,9 +1,15 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/__tests__/setup.ts'],
+    css: false,
+  },
   plugins: [react()],
 
   // ── Path Aliases ──────────────────────────────────────────
@@ -35,8 +41,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Code-split vendor chunks for better caching
-        manualChunks: {
-          react: ['react', 'react-dom'],
+        manualChunks(id) {
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'react';
+          }
         },
       },
     },
