@@ -1,0 +1,48 @@
+name: 📚 Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - dev          # Trigger ONLY on pushes to dev branch
+    paths:
+      - 'docs/**'   # Only trigger if files inside /docs change
+
+  # Allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy-docs:
+    name: Build & Deploy Docusaurus
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: 📦 Install documentation dependencies
+        working-directory: docs
+        run: npm ci
+
+      - name: 🏗️ Build Docusaurus site
+        working-directory: docs
+        run: npm run build
+
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '📚 docs: auto-deploy from dev branch [${{ github.sha }}]'

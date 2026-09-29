@@ -1,0 +1,187 @@
+/**
+ * Uptime Monitor - Docusaurus Custom Theme
+ * Premium dark-first theme with teal accent colours
+ */
+
+/* =========================================================
+   Design Tokens — Light Mode
+   ========================================================= */
+:root {
+  --ifm-color-primary: #00c9a7;
+  --ifm-color-primary-dark: #00b396;
+  --ifm-color-primary-darker: #00a88d;
+  --ifm-color-primary-darkest: #008a74;
+  --ifm-color-primary-light: #00dfb8;
+  --ifm-color-primary-lighter: #00e4bd;
+  --ifm-color-primary-lightest: #00f0ca;
+
+  --ifm-code-font-size: 93%;
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', monospace;
+  --ifm-heading-font-weight: 700;
+  --ifm-navbar-height: 64px;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 201, 167, 0.1);
+}
+
+/* =========================================================
+   Design Tokens — Dark Mode
+   ========================================================= */
+[data-theme='dark'] {
+  --ifm-color-primary: #00e5c0;
+  --ifm-color-primary-dark: #00cfad;
+  --ifm-color-primary-darker: #00c4a4;
+  --ifm-color-primary-darkest: #00a187;
+  --ifm-color-primary-light: #00fbd3;
+  --ifm-color-primary-lighter: #1afdd7;
+  --ifm-color-primary-lightest: #4dfede;
+
+  --ifm-background-color: #0d1117;
+  --ifm-background-surface-color: #161b22;
+  --ifm-navbar-background-color: rgba(13, 17, 23, 0.85);
+  --ifm-footer-background-color: #0d1117;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 229, 192, 0.12);
+}
+
+/* =========================================================
+   Google Fonts Import
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* =========================================================
+   Navbar — Glassmorphism effect in dark mode
+   ========================================================= */
+[data-theme='dark'] .navbar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar__title {
+  font-weight: 800;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #00e5c0, #00a3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =========================================================
+   Hero / Landing Banner (docs index)
+   ========================================================= */
+.hero {
+  background: linear-gradient(135deg, #0d1117 0%, #0a2a2a 50%, #0d1117 100%);
+  padding: 4rem 0;
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00e5c0 0%, #00a3ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* =========================================================
+   Sidebar
+   ========================================================= */
+[data-theme='dark'] .theme-doc-sidebar-container {
+  background-color: var(--ifm-background-surface-color);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.menu__link--active {
+  font-weight: 600;
+}
+
+/* =========================================================
+   Code Blocks
+   ========================================================= */
+.prism-code {
+  border-radius: 10px;
+  font-size: 0.88rem;
+}
+
+[data-theme='dark'] .prism-code {
+  background: #0d1117 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   Tables
+   ========================================================= */
+[data-theme='dark'] table {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] table thead tr {
+  background-color: rgba(0, 229, 192, 0.08);
+}
+
+[data-theme='dark'] table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+/* =========================================================
+   Admonitions (Note, Warning, Tip, etc.)
+   ========================================================= */
+[data-theme='dark'] .alert {
+  border-radius: 8px;
+  border-left-width: 4px;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+[data-theme='dark'] .footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer__title {
+  font-weight: 700;
+  color: #00e5c0;
+}
+
+/* =========================================================
+   Mermaid Diagrams — Force dark bg
+   ========================================================= */
+[data-theme='dark'] .docusaurus-mermaid-container svg {
+  background: #161b22;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* =========================================================
+   Breadcrumbs
+   ========================================================= */
+[data-theme='dark'] .breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--ifm-color-primary);
+}
+
+/* =========================================================
+   Scrollbar (Webkit)
+   ========================================================= */
+[data-theme='dark'] ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 3px;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: #00e5c0;
+}

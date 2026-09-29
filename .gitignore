@@ -110,3 +110,10 @@ desktop.ini
 # Uncomment the ones you do NOT use:
 # yarn.lock
 # pnpm-lock.yaml
+
+# ──────────────────────────────────────────────────────────
+# Docusaurus Documentation Site
+# ──────────────────────────────────────────────────────────
+docs/.docusaurus/
+docs/build/
+docs/.cache-loader/
